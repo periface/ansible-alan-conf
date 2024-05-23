@@ -1,0 +1,34 @@
+- name: install neovim from source
+  shell: |
+    apt-get install -y ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip
+    git clone https://github.com/neovim/neovim
+    cd neovim
+    rm -r build/
+    make CMAKE_BUILD_TYPE=Release
+    make install
+  tags:
+  - nvim
+- name: add PATH
+  shell: echo 'export PATH=$HOME/neovim/bin:$PATH' >> ~/.zshrc
+  environment:
+    PATH: $HOME/neovim/bin:$PATH
+  tags:
+  - path
+- name: add PATH to .bashrc
+  shell: echo 'export PATH=$HOME/neovim/bin:$PATH' >> ~/.bashrc
+  environment:
+    PATH: $HOME/neovim/bin:$PATH
+  tags:
+  - path
+- name: create config folder
+  shell: mkdir $HOME/.config
+  tags:
+  - nvim
+- name: create  nvim config folder
+  shell: mkdir $HOME/.config/nvim
+  tags:
+  - nvim
+- name: Copy nvim config
+  shell: cp -a ./nvim-config/. $HOME/.config/nvim/
+  tags:
+  - nvim

@@ -1,0 +1,14 @@
+- hosts: localhost
+  become: true
+  pre_tasks:
+  - name: Update cache
+    apt:
+      update_cache: true
+    tags:
+    - zsh
+    - node
+    - nvim
+  tasks:
+  - include: fem-tasks/zsh.yml
+  - include: fem-tasks/node.yml
+  - include: fem-tasks/nvim.yml
